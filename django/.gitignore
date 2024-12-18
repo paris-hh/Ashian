@@ -1,0 +1,29 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+*.env.*
+.venv
+
+# Django
+db.sqlite3
+*.log
+media/
+staticfiles/
+*.bak
+*.swp
+.DS_Store
+*.pytest_cache
+.mypy_cache/
+.coverage
+.coverage.*
+*.pot
+*.po~
+local_settings.py
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db

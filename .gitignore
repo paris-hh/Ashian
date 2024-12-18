@@ -1,2 +1,8 @@
 .env
 .config
+
+# Docker
+*.tar
+.dockerignore
+docker-compose.override.yml
+docker-compose.override.yaml
