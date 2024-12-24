@@ -47,7 +47,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        command: server /data
+        command: [ "server", "/data" ]
         ports:
           - 9000:9000
           - 9001:9001
@@ -75,7 +75,7 @@ jobs:
         echo "MINIO_ENDPOINT=http://localhost:9000" >> $GITHUB_ENV
         echo "MINIO_ACCESS_KEY=minioadmin" >> $GITHUB_ENV
         echo "MINIO_SECRET_KEY=minioadmin" >> $GITHUB_ENV
-        echo "DJANGO_SETTINGS_MODULE=your_project.settings" >> $GITHUB_ENV
+        echo "DJANGO_SETTINGS_MODULE=django.ashian.settings" >> $GITHUB_ENV
 
     - name: Prepare the database
       env:
