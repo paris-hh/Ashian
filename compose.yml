@@ -1,6 +1,7 @@
 # version: '3.9'
 
 services:
+
   django:
     build:
       context: .
@@ -18,14 +19,14 @@ services:
       - .:/app
 
   postgres:
-    image: postgres:15
+    image: postgres:17-alpine
     container_name: postgres_db
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Ashi@n
-      POSTGRES_DB: dbname
+      POSTGRES_DB: ashian
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

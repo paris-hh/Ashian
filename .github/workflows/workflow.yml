@@ -57,7 +57,7 @@ jobs:
       run: |
         echo "DATABASE_URL=postgres://django:django@localhost:5432/test_db" >> $GITHUB_ENV
         echo "MONGODB_URI=mongodb://localhost:27017" >> $GITHUB_ENV
-        echo "DJANGO_SETTINGS_MODULE=settings" >> $GITHUB_ENV
+        echo "DJANGO_SETTINGS_MODULE=django.ashian.settings" >> $GITHUB_ENV
 
     - name: Prepare the database
       env:
