@@ -3,55 +3,64 @@
 services:
 
   django:
+    # image: ashian-django:latest
     build:
-      context: .
+      context: ./django
       dockerfile: Dockerfile
     container_name: django_app
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgres://postgres:password@postgres:5432/dbname
+      - DATABASE_URL=postgres://postgres:password@postgres:5432/ashian
     depends_on:
       - postgres
-      - minio
-      - mongodb
+      # - minio
+      # - mongodb
     volumes:
-      - .:/app
+      - ./django/:/app
+    networks:
+      - ashian-network
 
   postgres:
     image: postgres:17-alpine
     container_name: postgres_db
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Ashi@n
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: ashian
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/postgres_data:/var/lib/postgresql/data
+    networks:
+      - ashian-network
 
-  minio:
-    image: minio/minio
-    container_name: minio_server
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-    command: server /data --console-address ":9001"
-    volumes:
-      - minio_data:/data
+  # minio:
+  #   image: minio/minio
+  #   container_name: minio_server
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
+  #   environment:
+  #     MINIO_ROOT_USER: minioadmin
+  #     MINIO_ROOT_PASSWORD: minioadmin
+  #   command: server /data --console-address ":9001"
+  #   volumes:
+  #     - minio_data:/data
 
-  mongodb:
-    image: mongo:6
-    container_name: mongodb_server
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
+  # mongodb:
+  #   image: mongo:6
+  #   container_name: mongodb_server
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongodb_data:/data/db
 
 volumes:
   postgres_data:
-  minio_data:
-  mongodb_data:
+  # minio_data:
+  # mongodb_data:
+
+networks:
+  ashian-network:
+    driver: bridge
