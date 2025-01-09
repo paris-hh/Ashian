@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', 
     'develop',
 ]
 
@@ -71,13 +70,13 @@ TEMPLATES = [
 # Update static files settings:
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Add this line
-STATICFILES_DIRS = [  # Add this line
+STATICFILES_DIRS = [
     BASE_DIR / 'develop' / 'static',
+    BASE_DIR / 'static',
 ]
 
-# Add media files settings:
-MEDIA_URL = '/media/'  # Add this line
-MEDIA_ROOT = BASE_DIR / 'media'  # Add this line
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 WSGI_APPLICATION = 'ashian.wsgi.application'
 
@@ -85,23 +84,23 @@ WSGI_APPLICATION = 'ashian.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "ashian",
-        "USER": "postgres",
-        "PASSWORD": "password",
-        "HOST": "postgres",
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "ashian",
+#         "USER": "postgres",
+#         "PASSWORD": "password",
+#         "HOST": "postgres",
+#         "PORT": "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
