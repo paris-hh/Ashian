@@ -10,6 +10,7 @@ services:
     container_name: django_app
     ports:
       - "8000:8000"
+    command: bash -c "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
     environment:
       - DATABASE_URL=postgres://postgres:password@postgres:5432/ashian
     depends_on:
@@ -20,6 +21,8 @@ services:
       - ./django/:/app
     networks:
       - ashian-network
+    env_file:
+      - .env
 
   postgres:
     image: postgres:17-alpine
@@ -36,17 +39,19 @@ services:
       - ashian-network
 
   # minio:
-  #   image: minio/minio
+  #   image: minio/minio:latest
   #   container_name: minio_server
   #   ports:
-  #     - "9000:9000"
-  #     - "9001:9001"
+  #     - 9000:9000
+  #     - 9001:9001
   #   environment:
-  #     MINIO_ROOT_USER: minioadmin
-  #     MINIO_ROOT_PASSWORD: minioadmin
+  #   # MINIO_ROOT_USER: minioadmin
+  #   # MINIO_ROOT_PASSWORD: minioadmin
+  #     MINIO_ACCESS_KEY: minio
+  #     MINIO_SECRET_KEY: minio123
   #   command: server /data --console-address ":9001"
   #   volumes:
-  #     - minio_data:/data
+  #     - ./minio/minio-data:/data
 
   # mongodb:
   #   image: mongo:6
@@ -56,8 +61,8 @@ services:
   #   volumes:
   #     - mongodb_data:/data/db
 
-volumes:
-  postgres_data:
+# volumes:
+  # postgres_data:
   # minio_data:
   # mongodb_data:
 

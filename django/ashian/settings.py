@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -67,19 +68,9 @@ TEMPLATES = [
     },
 ]
 
-# Update static files settings:
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Add this line
-STATICFILES_DIRS = [
-    BASE_DIR / 'develop' / 'static',
-    BASE_DIR / 'static',
-]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 WSGI_APPLICATION = 'ashian.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -135,8 +126,30 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'develop' / 'static',
+    BASE_DIR / 'static',
+]
+
+
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = "blogs.storage.S3MediaStorage"
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+# AWS_S3_ENDPOINT_URL = os.getenv("AWS_S3_URL")
+# MINIO_ACCESS_URL = os.getenv("MINIO_ACCESS_URL")
+
+# Static files settings
+# STATIC_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# STATIC_URL = f'{MINIO_ACCESS_URL}/{AWS_STORAGE_BUCKET_NAME}'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
