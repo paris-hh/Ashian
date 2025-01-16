@@ -23,6 +23,11 @@ services:
       - ashian-network
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   postgres:
     image: postgres:17-alpine
@@ -35,6 +40,13 @@ services:
       POSTGRES_DB: ashian
     volumes:
       - ./postgres/postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
     networks:
       - ashian-network
 

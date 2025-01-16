@@ -1,6 +1,18 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.db import connections
+from django.db.utils import OperationalError
 
-# Create your views here.
+def health_check(request):
+    db_health = "ok"
+    try:
+        connection = connections['default']
+        connection.cursor()
+    except OperationalError:
+        db_health = "unavailable"
+
+    return JsonResponse({"status": "ok", "database": db_health}, status=200 if db_health == "ok" else 500)
+
 def homepage(request):
     return render(request, 'develop/homepage.html')
 
