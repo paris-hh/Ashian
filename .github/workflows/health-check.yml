@@ -1,0 +1,41 @@
+name: Health Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and start containers
+        run: docker-compose up --build -d
+
+      - name: Wait for PostgreSQL
+        run: |
+          until [ "`docker inspect -f {{.State.Health.Status}} postgres_db`" == "healthy" ]; do
+            echo "Waiting for PostgreSQL to be healthy..."
+            sleep 5
+          done
+
+      - name: Wait for Django
+        run: |
+          until [ "`docker inspect -f {{.State.Health.Status}} django_app`" == "healthy" ]; do
+            echo "Waiting for Django to be healthy..."
+            sleep 5
+          done
+
+      - name: Run tests
+        run: docker-compose exec django pytest
+
+      - name: Tear down containers
+        run: docker-compose down
