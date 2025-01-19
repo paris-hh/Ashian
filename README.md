@@ -22,8 +22,8 @@ Ashian is a platform designed to facilitate the adoption of animals in need of c
 
 ### Clone the Repository
 ```bash
-git clone <repository-url>
-cd ashian
+git clone https://github.com/paris-hh/Ashian.git
+cd Ashian
 ```
 
 ### Environment Variables
@@ -61,9 +61,9 @@ Python package dependencies are listed in `requirements.txt` and installed autom
 ## Contributing
 We welcome contributions to Ashian! To contribute:
 1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature-name`.
+2. Create a feature branch: `git checkout -b yourName/typeOfBranch/title`.
 3. Commit your changes: `git commit -m 'Add some feature'`.
-4. Push to the branch: `git push origin feature-name`.
+4. Push to the branch: `git push origin branch-name`.
 5. Open a pull request.
 
 ---
